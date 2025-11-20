@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quantize
+package com.r0adkll.material3.color.quantize
 
-import java.util.Arrays
-import java.util.LinkedHashMap
-import java.util.Random
 import kotlin.math.abs
 import kotlin.math.min
 import kotlin.math.sqrt
+import kotlin.random.Random
 
 /**
  * An image quantizer that improves on the speed of a standard K-Means algorithm by implementing
@@ -112,7 +110,7 @@ object QuantizerWsmeans {
           distanceToIndexMatrix[i][j].distance = distance
           distanceToIndexMatrix[i][j].index = j
         }
-        Arrays.sort(distanceToIndexMatrix[i])
+        distanceToIndexMatrix[i].sort()
         for (j in 0 until clusterCount) {
           indexMatrix[i][j] = distanceToIndexMatrix[i][j].index
         }

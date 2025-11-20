@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
-import utils.MathUtils
+import com.r0adkll.material3.color.utils.MathUtils
 
 /**
  * A class containing a value that changes with the contrast level.

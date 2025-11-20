@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package blend
+package com.r0adkll.material3.color.blend
 
-import hct.Cam16
-import hct.Hct
-import utils.ColorUtils
-import utils.MathUtils
+import com.r0adkll.material3.color.hct.Cam16
+import com.r0adkll.material3.color.hct.Hct
+import com.r0adkll.material3.color.utils.ColorUtils
+import com.r0adkll.material3.color.utils.MathUtils
+import kotlin.jvm.JvmStatic
 import kotlin.math.min
 
 /** Functions for blending in HCT and CAM16. */

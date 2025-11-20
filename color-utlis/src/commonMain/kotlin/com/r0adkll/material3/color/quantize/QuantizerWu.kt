@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quantize
+package com.r0adkll.material3.color.quantize
 
-import utils.ColorUtils
-import java.util.ArrayList
-import java.util.LinkedHashMap
+import com.r0adkll.material3.color.utils.ColorUtils
 
 /**
  * An image quantizer that divides the image's pixels into clusters by recursively cutting an RGB

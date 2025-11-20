@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package utils
+package com.r0adkll.material3.color.utils
 
 /** Utility methods for string representations of colors. */
 internal object StringUtils {
@@ -26,6 +26,6 @@ internal object StringUtils {
     val red = ColorUtils.redFromArgb(argb)
     val blue = ColorUtils.blueFromArgb(argb)
     val green = ColorUtils.greenFromArgb(argb)
-    return String.format("#%02x%02x%02x", red, green, blue)
+    return "#${red.toHexString()}${green.toHexString()}${blue.toHexString()}"
   }
 }

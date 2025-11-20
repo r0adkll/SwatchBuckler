@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quantize
+package com.r0adkll.material3.color.quantize
 
-import utils.ColorUtils
+import com.r0adkll.material3.color.utils.ColorUtils
 
 /**
  * Provides conversions needed for K-Means quantization. Converting input to points, and converting

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package score
+package com.r0adkll.material3.color.score
 
-import hct.Hct
-import utils.MathUtils
-import java.util.ArrayList
-import java.util.Collections
+import com.r0adkll.material3.color.hct.Hct
+import com.r0adkll.material3.color.utils.MathUtils
+import kotlin.collections.iterator
+import kotlin.jvm.JvmStatic
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
@@ -115,7 +115,7 @@ object Score {
       scoredHcts.add(ScoredHCT(hct, score))
     }
     // Sorted so that colors with higher scores come first.
-    Collections.sort(scoredHcts, ScoredComparator())
+    scoredHcts.sortWith(ScoredComparator())
 
     // Iterates through potential hue differences in degrees in order to select
     // the colors with the largest distribution of hues possible. Starting at

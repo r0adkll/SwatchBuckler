@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quantize
+package com.r0adkll.material3.color.quantize
 
 /**
  * An image quantizer that improves on the quality of a standard K-Means algorithm by setting the

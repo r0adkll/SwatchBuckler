@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package palettes
+package com.r0adkll.material3.color.palettes
 
 /**
  * Comprises foundational palettes to build a color scheme.

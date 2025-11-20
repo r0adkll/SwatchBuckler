@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
-import dynamiccolor.ColorSpec.SpecVersion
+import com.r0adkll.material3.color.dynamiccolor.ColorSpec.SpecVersion
+import kotlin.jvm.JvmStatic
 
 /** A utility class to get the correct color spec for a given spec version. */
 object ColorSpecs {

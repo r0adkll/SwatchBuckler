@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
-import contrast.Contrast
-import dislike.DislikeAnalyzer
-import dynamiccolor.DynamicScheme.Platform
-import dynamiccolor.ToneDeltaPair.DeltaConstraint
-import dynamiccolor.ToneDeltaPair.TonePolarity
-import hct.Hct
-import palettes.TonalPalette
-import temperature.TemperatureCache
-import utils.MathUtils
+import com.r0adkll.material3.color.contrast.Contrast
+import com.r0adkll.material3.color.dislike.DislikeAnalyzer
+import com.r0adkll.material3.color.dynamiccolor.DynamicScheme.Platform
+import com.r0adkll.material3.color.dynamiccolor.ToneDeltaPair.DeltaConstraint
+import com.r0adkll.material3.color.dynamiccolor.ToneDeltaPair.TonePolarity
+import com.r0adkll.material3.color.hct.Hct
+import com.r0adkll.material3.color.palettes.TonalPalette
+import com.r0adkll.material3.color.temperature.TemperatureCache
+import com.r0adkll.material3.color.utils.MathUtils
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min

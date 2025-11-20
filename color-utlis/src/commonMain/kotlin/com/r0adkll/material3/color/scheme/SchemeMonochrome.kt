@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package scheme
+package com.r0adkll.material3.color.scheme
 
-import dynamiccolor.ColorSpec.SpecVersion
-import dynamiccolor.ColorSpecs
-import dynamiccolor.DynamicScheme
-import dynamiccolor.Variant
-import hct.Hct
+import com.r0adkll.material3.color.dynamiccolor.ColorSpec.SpecVersion
+import com.r0adkll.material3.color.dynamiccolor.ColorSpecs
+import com.r0adkll.material3.color.dynamiccolor.DynamicScheme
+import com.r0adkll.material3.color.dynamiccolor.Variant
+import com.r0adkll.material3.color.hct.Hct
 
 /** A monochrome theme, colors are purely black / white / gray. */
 class SchemeMonochrome(

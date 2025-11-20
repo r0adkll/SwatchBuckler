@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
-import dynamiccolor.DynamicScheme.Platform
-import hct.Hct
-import palettes.TonalPalette
+import com.r0adkll.material3.color.dynamiccolor.DynamicScheme.Platform
+import com.r0adkll.material3.color.hct.Hct
+import com.r0adkll.material3.color.palettes.TonalPalette
 
 /** An interface defining all the necessary methods that could be different between specs. */
 interface ColorSpec {

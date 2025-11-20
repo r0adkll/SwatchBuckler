@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
 /**
  * Documents a constraint between two DynamicColors, in which their tones must have a certain

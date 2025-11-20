@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dislike
+package com.r0adkll.material3.color.dislike
 
-import hct.Hct
+import com.r0adkll.material3.color.hct.Hct
+import kotlin.jvm.JvmStatic
 import kotlin.math.round
 
 /**

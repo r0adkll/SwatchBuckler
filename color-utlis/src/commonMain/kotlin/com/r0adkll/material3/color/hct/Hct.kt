@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hct
+package com.r0adkll.material3.color.hct
 
-import utils.ColorUtils
+import com.r0adkll.material3.color.utils.ColorUtils
+import kotlin.jvm.JvmStatic
 import kotlin.math.roundToInt
 
 /**

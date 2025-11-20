@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
-import contrast.Contrast
-import dynamiccolor.ColorSpec.SpecVersion
-import hct.Hct
-import palettes.TonalPalette
-import utils.MathUtils
+import com.r0adkll.material3.color.contrast.Contrast
+import com.r0adkll.material3.color.dynamiccolor.ColorSpec.SpecVersion
+import com.r0adkll.material3.color.hct.Hct
+import com.r0adkll.material3.color.palettes.TonalPalette
+import com.r0adkll.material3.color.utils.MathUtils
+import kotlin.jvm.JvmStatic
 import kotlin.math.abs
 import kotlin.math.roundToInt
 

@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dynamiccolor
+package com.r0adkll.material3.color.dynamiccolor
 
-import dynamiccolor.ColorSpec.SpecVersion
-import hct.Hct
-import palettes.TonalPalette
-import utils.MathUtils
-import java.text.DecimalFormat
-import java.util.Locale
+import com.r0adkll.material3.color.dynamiccolor.ColorSpec.SpecVersion
+import com.r0adkll.material3.color.hct.Hct
+import com.r0adkll.material3.color.palettes.TonalPalette
+import com.r0adkll.material3.color.utils.MathUtils
+import kotlin.jvm.JvmStatic
 import kotlin.math.min
 
 /**
@@ -77,9 +76,11 @@ open class DynamicScheme(
   }
 
   override fun toString(): String {
-    return "Scheme: variant=${variant.name}, mode=${if (isDark) "dark" else "light"}, platform=${platform.name.lowercase(
-      Locale.ENGLISH
-    )}, contrastLevel=${DecimalFormat("0.0").format(contrastLevel)}, seed=$sourceColorHct, specVersion=$specVersion"
+    return "Scheme: variant=${variant.name}, " +
+      "mode=${if (isDark) "dark" else "light"}, " +
+      "platform=${platform.name.lowercase()}, " +
+      "contrastLevel=${contrastLevel}, " +
+      "seed=$sourceColorHct, specVersion=$specVersion"
   }
 
   private val dynamicColors = MaterialDynamicColors()

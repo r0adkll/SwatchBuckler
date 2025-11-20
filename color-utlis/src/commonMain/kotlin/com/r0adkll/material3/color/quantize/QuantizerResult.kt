@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quantize
+package com.r0adkll.material3.color.quantize
 
 /** Represents result of a quantizer run */
 data class QuantizerResult(val colorToCount: Map<Int, Int>)

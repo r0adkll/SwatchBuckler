@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hct
+package com.r0adkll.material3.color.hct
 
-import utils.ColorUtils
-import utils.MathUtils
+import com.r0adkll.material3.color.utils.ColorUtils
+import com.r0adkll.material3.color.utils.MathUtils
+import kotlin.jvm.JvmStatic
 import kotlin.math.PI
 import kotlin.math.cbrt
 import kotlin.math.exp

@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package quantize
-
-import java.util.LinkedHashMap
+package com.r0adkll.material3.color.quantize
 
 /** Creates a dictionary with keys of colors, and values of count of the color */
 class QuantizerMap : Quantizer {
