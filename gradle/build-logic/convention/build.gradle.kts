@@ -16,13 +16,13 @@ java {
 spotless {
   kotlin {
     target("src/**/*.kt")
-    ktfmt(libs.versions.ktfmt.get())
+    ktlint(libs.versions.ktlint.get())
     licenseHeaderFile(rootProject.file("../../spotless/dh-copyright.txt"))
   }
 
   kotlinGradle {
     target("*.kts")
-    ktlint(libs.versions.ktfmt.get())
+    ktlint(libs.versions.ktlint.get())
     licenseHeaderFile(rootProject.file("../../spotless/dh-copyright.txt"), "(^(?![\\/ ]\\**).*$)")
   }
 }

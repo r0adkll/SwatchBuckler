@@ -1,4 +1,4 @@
-rootProject.name = "themebuilder"
+rootProject.name = "SwatchBuckler"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -30,6 +30,10 @@ dependencyResolutionManagement {
   }
 }
 
-include(":androidApp")
+include(":app:android")
+include(":app:common")
+include(":app:desktop")
 
-include("color-utlis")
+include("color-utils")
+include("compose")
+include("coil")
