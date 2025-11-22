@@ -28,24 +28,29 @@ class SchemeVibrant(
   contrastLevel: Double,
   specVersion: SpecVersion = DEFAULT_SPEC_VERSION,
   platform: Platform = DEFAULT_PLATFORM,
-) :
-  DynamicScheme(
+) : DynamicScheme(
     sourceColorHct,
     Variant.VIBRANT,
     isDark,
     contrastLevel,
     platform,
     specVersion,
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getPrimaryPalette(Variant.VIBRANT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getSecondaryPalette(Variant.VIBRANT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getTertiaryPalette(Variant.VIBRANT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralPalette(Variant.VIBRANT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralVariantPalette(Variant.VIBRANT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getErrorPalette(Variant.VIBRANT, sourceColorHct, isDark, platform, contrastLevel),
   )

@@ -229,6 +229,7 @@ class MaterialDynamicColors {
   // ////////////////////////////////////////////////////////////////
   // All Colors //
   // ////////////////////////////////////////////////////////////////
+
   /** All dynamic colors in Material Design system. */
   val allDynamicColors: List<() -> DynamicColor?> by lazy {
     listOf(

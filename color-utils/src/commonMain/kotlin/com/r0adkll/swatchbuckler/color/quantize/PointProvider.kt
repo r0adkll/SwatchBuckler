@@ -27,5 +27,8 @@ interface PointProvider {
    * Squared distance between two colors. Distance is defined by scientific color spaces and
    * referred to as delta E.
    */
-  fun distance(a: DoubleArray, b: DoubleArray): Double
+  fun distance(
+    a: DoubleArray,
+    b: DoubleArray,
+  ): Double
 }

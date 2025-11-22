@@ -16,5 +16,8 @@
 package com.r0adkll.swatchbuckler.color.quantize
 
 internal interface Quantizer {
-  fun quantize(pixels: IntArray, maxColors: Int): QuantizerResult
+  fun quantize(
+    pixels: IntArray,
+    maxColors: Int,
+  ): QuantizerResult
 }

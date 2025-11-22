@@ -28,7 +28,12 @@ import com.r0adkll.swatchbuckler.color.utils.MathUtils
  * @property medium Value for contrast level 0.5
  * @property high Value for contrast level 1.0
  */
-class ContrastCurve(val low: Double, val normal: Double, val medium: Double, val high: Double) {
+class ContrastCurve(
+  val low: Double,
+  val normal: Double,
+  val medium: Double,
+  val high: Double,
+) {
   /**
    * Returns the value at a given contrast level.
    *
@@ -36,8 +41,8 @@ class ContrastCurve(val low: Double, val normal: Double, val medium: Double, val
    *   is the highest.
    * @return The value. For contrast ratios, a number between 1.0 and 21.0.
    */
-  fun get(contrastLevel: Double): Double {
-    return if (contrastLevel <= -1.0) {
+  fun get(contrastLevel: Double): Double =
+    if (contrastLevel <= -1.0) {
       low
     } else if (contrastLevel < 0.0) {
       MathUtils.lerp(low, normal, (contrastLevel - -1) / 1)
@@ -48,5 +53,4 @@ class ContrastCurve(val low: Double, val normal: Double, val medium: Double, val
     } else {
       high
     }
-  }
 }

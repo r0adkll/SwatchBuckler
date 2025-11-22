@@ -26,17 +26,14 @@ object ColorSpecs {
     ColorSpec2025()
 
   @JvmStatic
-  fun get(): ColorSpec {
-    return get(SpecVersion.SPEC_2021)
-  }
+  fun get(): ColorSpec = get(SpecVersion.SPEC_2021)
 
   @JvmStatic
-  fun get(specVersion: SpecVersion): ColorSpec {
-    return get(specVersion, false)
-  }
+  fun get(specVersion: SpecVersion): ColorSpec = get(specVersion, false)
 
   @JvmStatic
-  fun get(specVersion: SpecVersion, isExtendedFidelity: Boolean): ColorSpec {
-    return if (specVersion == SpecVersion.SPEC_2025) SPEC_2025 else SPEC_2021
-  }
+  fun get(
+    specVersion: SpecVersion,
+    isExtendedFidelity: Boolean,
+  ): ColorSpec = if (specVersion == SpecVersion.SPEC_2025) SPEC_2025 else SPEC_2021
 }

@@ -38,24 +38,29 @@ class SchemeContent(
   contrastLevel: Double,
   specVersion: SpecVersion = DEFAULT_SPEC_VERSION,
   platform: Platform = DEFAULT_PLATFORM,
-) :
-  DynamicScheme(
+) : DynamicScheme(
     sourceColorHct,
     Variant.CONTENT,
     isDark,
     contrastLevel,
     platform,
     specVersion,
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getPrimaryPalette(Variant.CONTENT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getSecondaryPalette(Variant.CONTENT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getTertiaryPalette(Variant.CONTENT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralPalette(Variant.CONTENT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralVariantPalette(Variant.CONTENT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getErrorPalette(Variant.CONTENT, sourceColorHct, isDark, platform, contrastLevel),
   )

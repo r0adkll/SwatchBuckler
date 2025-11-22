@@ -19,7 +19,7 @@ import com.r0adkll.swatchbuckler.color.utils.ColorUtils
 import kotlin.jvm.JvmStatic
 import kotlin.math.roundToInt
 
-/**
+/*
  * A color system built using CAM16 hue and chroma, and L* from L*a*b*.
  *
  * Using L* creates a link between the color system, contrast, and thus accessibility. Contrast
@@ -38,7 +38,9 @@ import kotlin.math.roundToInt
  * measurement system that can also accurately render what colors will appear as in different
  * lighting environments.
  */
-class Hct private constructor(argb: Int) {
+class Hct private constructor(
+  argb: Int,
+) {
   var hue = 0.0
     private set
 
@@ -54,9 +56,7 @@ class Hct private constructor(argb: Int) {
     setInternalState(argb)
   }
 
-  fun toInt(): Int {
-    return argb
-  }
+  fun toInt(): Int = argb
 
   /**
    * Set the hue of this color. Chroma may decrease because chroma has a different maximum for any
@@ -88,9 +88,7 @@ class Hct private constructor(argb: Int) {
     setInternalState(HctSolver.solveToInt(hue, chroma, newTone))
   }
 
-  override fun toString(): String {
-    return "HCT(${hue.roundToInt()}, ${chroma.roundToInt()}, ${tone.roundToInt()})"
-  }
+  override fun toString(): String = "HCT(${hue.roundToInt()}, ${chroma.roundToInt()}, ${tone.roundToInt()})"
 
   /**
    * Translate a color into different ViewingConditions.
@@ -125,7 +123,7 @@ class Hct private constructor(argb: Int) {
     return from(
       recastInVc.hue,
       recastInVc.chroma,
-      ColorUtils.lstarFromY(viewedInVc[1])
+      ColorUtils.lstarFromY(viewedInVc[1]),
     )
   }
 
@@ -148,7 +146,11 @@ class Hct private constructor(argb: Int) {
      * @return HCT representation of a color in default viewing conditions.
      */
     @JvmStatic
-    fun from(hue: Double, chroma: Double, tone: Double): Hct {
+    fun from(
+      hue: Double,
+      chroma: Double,
+      tone: Double,
+    ): Hct {
       val argb = HctSolver.solveToInt(hue, chroma, tone)
       return Hct(argb)
     }
@@ -160,23 +162,15 @@ class Hct private constructor(argb: Int) {
      * @return HCT representation of a color in default viewing conditions
      */
     @JvmStatic
-    fun fromInt(argb: Int): Hct {
-      return Hct(argb)
-    }
+    fun fromInt(argb: Int): Hct = Hct(argb)
 
     @JvmStatic
-    fun isBlue(hue: Double): Boolean {
-      return hue >= 250 && hue < 270
-    }
+    fun isBlue(hue: Double): Boolean = hue >= 250 && hue < 270
 
     @JvmStatic
-    fun isYellow(hue: Double): Boolean {
-      return hue >= 105 && hue < 125
-    }
+    fun isYellow(hue: Double): Boolean = hue >= 105 && hue < 125
 
     @JvmStatic
-    fun isCyan(hue: Double): Boolean {
-      return hue >= 170 && hue < 207
-    }
+    fun isCyan(hue: Double): Boolean = hue >= 170 && hue < 207
   }
 }

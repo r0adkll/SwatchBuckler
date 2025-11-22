@@ -35,16 +35,14 @@ import kotlin.math.sqrt
  *
  * This class caches intermediate values of the CAM16 conversion process that depend only on viewing
  * conditions, enabling speed ups.
- */
-@ConsistentCopyVisibility
-data class ViewingConditions
-/**
+ *
  * Parameters are intermediate values of the CAM16 conversion process. Their names are shorthand for
  * technical color science terminology, this class would not benefit from documenting them
  * individually. A brief overview is available in the CAM16 specification, and a complete overview
  * requires a color science textbook, such as Fairchild's Color Appearance Models.
  */
-private constructor(
+@ConsistentCopyVisibility
+data class ViewingConditions private constructor(
   val n: Double,
   val aw: Double,
   val nbb: Double,
@@ -56,7 +54,6 @@ private constructor(
   val flRoot: Double,
   internal val z: Double,
 ) {
-
   companion object {
     /** sRGB-like viewing conditions. */
     val DEFAULT = defaultWithBackgroundLstar(50.0)
@@ -148,7 +145,7 @@ private constructor(
         rgbD,
         fl,
         fl.pow(0.25),
-        z
+        z,
       )
     }
 
@@ -158,14 +155,13 @@ private constructor(
      * Default viewing conditions have a lstar of 50, midgray.
      */
     @JvmStatic
-    fun defaultWithBackgroundLstar(lstar: Double): ViewingConditions {
-      return make(
+    fun defaultWithBackgroundLstar(lstar: Double): ViewingConditions =
+      make(
         ColorUtils.whitePointD65(),
         200.0 / PI * ColorUtils.yFromLstar(50.0) / 100f,
         lstar,
         2.0,
         false,
       )
-    }
   }
 }

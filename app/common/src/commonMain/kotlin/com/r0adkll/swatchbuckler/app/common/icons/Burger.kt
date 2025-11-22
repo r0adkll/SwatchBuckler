@@ -14,14 +14,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val AppIcons.Burger: ImageVector by
   lazy(LazyThreadSafetyMode.NONE) {
-    ImageVector.Builder(
+    ImageVector
+      .Builder(
         name = "Burger",
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
         viewportWidth = 960f,
         viewportHeight = 960f,
-      )
-      .apply {
+      ).apply {
         path(fill = SolidColor(Color.Black)) {
           moveTo(160f, 840f)
           quadToRelative(-33f, 0f, -56.5f, -23.5f)
@@ -104,8 +104,7 @@ val AppIcons.Burger: ImageVector by
           moveTo(480f, 320f)
           close()
         }
-      }
-      .build()
+      }.build()
   }
 
 @Preview

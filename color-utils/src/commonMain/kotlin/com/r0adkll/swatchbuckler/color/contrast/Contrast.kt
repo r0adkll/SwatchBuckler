@@ -92,7 +92,10 @@ object Contrast {
    * The equation is ratio = lighter Y + 5 / darker Y + 5.
    */
   @JvmStatic
-  fun ratioOfYs(y1: Double, y2: Double): Double {
+  fun ratioOfYs(
+    y1: Double,
+    y2: Double,
+  ): Double {
     val lighter = max(y1, y2)
     val darker = if (lighter == y2) y1 else y2
     return (lighter + 5.0) / (darker + 5.0)
@@ -114,9 +117,10 @@ object Contrast {
    * with hex codes.
    */
   @JvmStatic
-  fun ratioOfTones(t1: Double, t2: Double): Double {
-    return ratioOfYs(ColorUtils.yFromLstar(t1), ColorUtils.yFromLstar(t2))
-  }
+  fun ratioOfTones(
+    t1: Double,
+    t2: Double,
+  ): Double = ratioOfYs(ColorUtils.yFromLstar(t1), ColorUtils.yFromLstar(t2))
 
   /**
    * Returns T in HCT, L* in L*a*b* >= tone parameter that ensures ratio with input T/L*. Returns
@@ -126,7 +130,10 @@ object Contrast {
    * @param ratio Desired contrast ratio of return value and tone parameter.
    */
   @JvmStatic
-  fun lighter(tone: Double, ratio: Double): Double? {
+  fun lighter(
+    tone: Double,
+    ratio: Double,
+  ): Double? {
     if (tone < 0.0 || tone > 100.0) {
       return null
     }
@@ -161,9 +168,10 @@ object Contrast {
    * @param ratio Desired contrast ratio of return value and tone parameter.
    */
   @JvmStatic
-  fun lighterUnsafe(tone: Double, ratio: Double): Double {
-    return lighter(tone, ratio) ?: 100.0
-  }
+  fun lighterUnsafe(
+    tone: Double,
+    ratio: Double,
+  ): Double = lighter(tone, ratio) ?: 100.0
 
   /**
    * Returns T in HCT, L* in L*a*b* <= tone parameter that ensures ratio with input T/L*. Returns
@@ -173,7 +181,10 @@ object Contrast {
    * @param ratio Desired contrast ratio of return value and tone parameter.
    */
   @JvmStatic
-  fun darker(tone: Double, ratio: Double): Double? {
+  fun darker(
+    tone: Double,
+    ratio: Double,
+  ): Double? {
     if (tone < 0.0 || tone > 100.0) {
       return null
     }
@@ -209,7 +220,8 @@ object Contrast {
    * @param ratio Desired contrast ratio of return value and tone parameter.
    */
   @JvmStatic
-  fun darkerUnsafe(tone: Double, ratio: Double): Double {
-    return darker(tone, ratio) ?: 0.0
-  }
+  fun darkerUnsafe(
+    tone: Double,
+    ratio: Double,
+  ): Double = darker(tone, ratio) ?: 0.0
 }

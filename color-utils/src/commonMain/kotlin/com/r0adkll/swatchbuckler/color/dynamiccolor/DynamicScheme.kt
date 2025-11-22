@@ -50,7 +50,6 @@ open class DynamicScheme(
   val neutralVariantPalette: TonalPalette,
   val errorPalette: TonalPalette,
 ) {
-
   /** The spec version of the scheme. */
   val specVersion: SpecVersion
 
@@ -58,7 +57,7 @@ open class DynamicScheme(
     this.specVersion =
       maybeFallbackSpecVersion(
         specVersion,
-        variant
+        variant,
       )
   }
 
@@ -71,21 +70,16 @@ open class DynamicScheme(
     WATCH,
   }
 
-  fun getHct(dynamicColor: DynamicColor): Hct {
-    return dynamicColor.getHct(this)
-  }
+  fun getHct(dynamicColor: DynamicColor): Hct = dynamicColor.getHct(this)
 
-  fun getArgb(dynamicColor: DynamicColor): Int {
-    return dynamicColor.getArgb(this)
-  }
+  fun getArgb(dynamicColor: DynamicColor): Int = dynamicColor.getArgb(this)
 
-  override fun toString(): String {
-    return "Scheme: variant=${variant.name}, " +
+  override fun toString(): String =
+    "Scheme: variant=${variant.name}, " +
       "mode=${if (isDark) "dark" else "light"}, " +
       "platform=${platform.name.lowercase()}, " +
-      "contrastLevel=${contrastLevel}, " +
+      "contrastLevel=$contrastLevel, " +
       "seed=$sourceColorHct, specVersion=$specVersion"
-  }
 
   private val dynamicColors = MaterialDynamicColors()
 
@@ -256,13 +250,18 @@ open class DynamicScheme(
     val DEFAULT_PLATFORM = Platform.PHONE
 
     @JvmStatic
-    fun from(other: DynamicScheme, isDark: Boolean): DynamicScheme {
-      return from(other, isDark, other.contrastLevel)
-    }
+    fun from(
+      other: DynamicScheme,
+      isDark: Boolean,
+    ): DynamicScheme = from(other, isDark, other.contrastLevel)
 
     @JvmStatic
-    fun from(other: DynamicScheme, isDark: Boolean, contrastLevel: Double): DynamicScheme {
-      return DynamicScheme(
+    fun from(
+      other: DynamicScheme,
+      isDark: Boolean,
+      contrastLevel: Double,
+    ): DynamicScheme =
+      DynamicScheme(
         other.sourceColorHct,
         other.variant,
         isDark,
@@ -276,7 +275,6 @@ open class DynamicScheme(
         other.neutralVariantPalette,
         other.errorPalette,
       )
-    }
 
     /**
      * Returns a new hue based on a piecewise function and input color hue.
@@ -361,18 +359,23 @@ open class DynamicScheme(
      * Returns the spec version to use for the given variant. If the variant is not supported by the
      * given spec version, the fallback spec version is returned.
      */
-    private fun maybeFallbackSpecVersion(specVersion: SpecVersion, variant: Variant): SpecVersion {
-      return when (variant) {
+    private fun maybeFallbackSpecVersion(
+      specVersion: SpecVersion,
+      variant: Variant,
+    ): SpecVersion =
+      when (variant) {
         Variant.EXPRESSIVE,
         Variant.VIBRANT,
         Variant.TONAL_SPOT,
-        Variant.NEUTRAL -> specVersion
+        Variant.NEUTRAL,
+        -> specVersion
+
         Variant.MONOCHROME,
         Variant.FIDELITY,
         Variant.CONTENT,
         Variant.RAINBOW,
-        Variant.FRUIT_SALAD -> SpecVersion.SPEC_2021
+        Variant.FRUIT_SALAD,
+        -> SpecVersion.SPEC_2021
       }
-    }
   }
 }

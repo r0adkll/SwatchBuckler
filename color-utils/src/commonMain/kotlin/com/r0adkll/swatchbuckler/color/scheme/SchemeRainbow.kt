@@ -28,24 +28,29 @@ class SchemeRainbow(
   contrastLevel: Double,
   specVersion: SpecVersion = DEFAULT_SPEC_VERSION,
   platform: Platform = DEFAULT_PLATFORM,
-) :
-  DynamicScheme(
+) : DynamicScheme(
     sourceColorHct,
     Variant.RAINBOW,
     isDark,
     contrastLevel,
     platform,
     specVersion,
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getPrimaryPalette(Variant.RAINBOW, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getSecondaryPalette(Variant.RAINBOW, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getTertiaryPalette(Variant.RAINBOW, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralPalette(Variant.RAINBOW, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralVariantPalette(Variant.RAINBOW, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getErrorPalette(Variant.RAINBOW, sourceColorHct, isDark, platform, contrastLevel),
   )

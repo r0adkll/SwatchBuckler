@@ -44,14 +44,17 @@ object Score {
   }
 
   @JvmStatic
-  fun score(colorsToPopulation: Map<Int, Int>, desired: Int): List<Int> {
-    return score(colorsToPopulation, desired, 0xff4285f4.toInt(), true)
-  }
+  fun score(
+    colorsToPopulation: Map<Int, Int>,
+    desired: Int,
+  ): List<Int> = score(colorsToPopulation, desired, 0xff4285f4.toInt(), true)
 
   @JvmStatic
-  fun score(colorsToPopulation: Map<Int, Int>, desired: Int, fallbackColorArgb: Int): List<Int> {
-    return score(colorsToPopulation, desired, fallbackColorArgb, true)
-  }
+  fun score(
+    colorsToPopulation: Map<Int, Int>,
+    desired: Int,
+    fallbackColorArgb: Int,
+  ): List<Int> = score(colorsToPopulation, desired, fallbackColorArgb, true)
 
   /**
    * Given a map with keys of colors and values of how often the color appears, rank the colors
@@ -74,7 +77,6 @@ object Score {
     fallbackColorArgb: Int,
     filter: Boolean,
   ): List<Int> {
-
     // Get the HCT color for each Argb value, while finding the per hue count and
     // total count.
     val colorsHct: MutableList<Hct> = ArrayList()
@@ -154,11 +156,15 @@ object Score {
     return colors
   }
 
-  private class ScoredHCT(val hct: Hct, val score: Double)
+  private class ScoredHCT(
+    val hct: Hct,
+    val score: Double,
+  )
 
   private class ScoredComparator : Comparator<ScoredHCT> {
-    override fun compare(entry1: ScoredHCT, entry2: ScoredHCT): Int {
-      return entry2.score.compareTo(entry1.score)
-    }
+    override fun compare(
+      entry1: ScoredHCT,
+      entry2: ScoredHCT,
+    ): Int = entry2.score.compareTo(entry1.score)
   }
 }

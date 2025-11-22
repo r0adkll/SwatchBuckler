@@ -22,90 +22,90 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompileCommon
 
 class KotlinMultiplatformConventionPlugin : Plugin<Project> {
   @OptIn(ExperimentalKotlinGradlePluginApi::class)
-  override fun apply(target: Project) = with(target) {
-    with(pluginManager) {
-      apply("org.jetbrains.kotlin.multiplatform")
-    }
-
-    extensions.configure<KotlinMultiplatformExtension> {
-      compilerOptions {
-        freeCompilerArgs.addAll(
-          "-opt-in=kotlin.uuid.ExperimentalUuidApi",
-          "-opt-in=kotlin.time.ExperimentalTime",
-          "-Xexpect-actual-classes",
-          "-Xannotation-default-target=param-property",
-        )
+  override fun apply(target: Project) =
+    with(target) {
+      with(pluginManager) {
+        apply("org.jetbrains.kotlin.multiplatform")
       }
 
-      applyDefaultHierarchyTemplate()
-
-      jvm()
-
-      if (pluginManager.hasPlugin("com.android.library")) {
-        androidTarget()
-      }
-
-      iosArm64()
-      iosSimulatorArm64()
-
-      targets.withType<KotlinNativeTarget>().configureEach {
-        binaries.framework { baseName = target.path.substring(1).replace(":", "_") }
-
-        binaries.configureEach {
-          // Add linker flag for SQLite. See:
-          // https://github.com/touchlab/SQLiter/issues/77
-          linkerOpts("-lsqlite3")
-
-          // Workaround for https://youtrack.jetbrains.com/issue/KT-64508
-          freeCompilerArgs += "-Xdisable-phases=RemoveRedundantCallsToStaticInitializersPhase"
+      extensions.configure<KotlinMultiplatformExtension> {
+        compilerOptions {
+          freeCompilerArgs.addAll(
+            "-opt-in=kotlin.uuid.ExperimentalUuidApi",
+            "-opt-in=kotlin.time.ExperimentalTime",
+            "-Xexpect-actual-classes",
+            "-Xannotation-default-target=param-property",
+          )
         }
 
-        compilations.configureEach {
-          compileTaskProvider.configure {
-            compilerOptions {
-              // Various opt-ins
-              freeCompilerArgs.addAll(
-                "-opt-in=kotlinx.cinterop.ExperimentalForeignApi",
-                "-opt-in=kotlinx.cinterop.BetaInteropApi",
-                "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
-              )
-            }
+        applyDefaultHierarchyTemplate()
+
+        jvm()
+
+        if (pluginManager.hasPlugin("com.android.library")) {
+          androidTarget()
+        }
+
+        iosArm64()
+        iosSimulatorArm64()
+
+        targets.withType<KotlinNativeTarget>().configureEach {
+          binaries.framework { baseName = target.path.substring(1).replace(":", "_") }
+
+          binaries.configureEach {
+            // Add linker flag for SQLite. See:
+            // https://github.com/touchlab/SQLiter/issues/77
+            linkerOpts("-lsqlite3")
+
+            // Workaround for https://youtrack.jetbrains.com/issue/KT-64508
+            freeCompilerArgs += "-Xdisable-phases=RemoveRedundantCallsToStaticInitializersPhase"
           }
-        }
-      }
 
-      targets.configureEach {
-        compilations.configureEach {
-          compileTaskProvider.configure {
-            compilerOptions {
-              freeCompilerArgs.addAll(
-                "-Xexpect-actual-classes",
-                "-Xannotation-default-target=param-property",
-              )
-            }
-          }
-        }
-      }
-
-      metadata {
-        compilations.configureEach {
-          if (name == KotlinSourceSet.COMMON_MAIN_SOURCE_SET_NAME) {
+          compilations.configureEach {
             compileTaskProvider.configure {
-              // We replace the default library names with something more unique (the project path).
-              // This allows us to avoid the annoying issue of `duplicate library name: foo_commonMain`
-              // https://youtrack.jetbrains.com/issue/KT-57914
-              val projectPath = this@with.path.substring(1).replace(":", "_")
-              this as KotlinCompileCommon
-              moduleName.set("${projectPath}_commonMain")
+              compilerOptions {
+                // Various opt-ins
+                freeCompilerArgs.addAll(
+                  "-opt-in=kotlinx.cinterop.ExperimentalForeignApi",
+                  "-opt-in=kotlinx.cinterop.BetaInteropApi",
+                  "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+                )
+              }
             }
           }
         }
-      }
 
-      configureSpotless()
-      configureKotlin()
+        targets.configureEach {
+          compilations.configureEach {
+            compileTaskProvider.configure {
+              compilerOptions {
+                freeCompilerArgs.addAll(
+                  "-Xexpect-actual-classes",
+                  "-Xannotation-default-target=param-property",
+                )
+              }
+            }
+          }
+        }
+
+        metadata {
+          compilations.configureEach {
+            if (name == KotlinSourceSet.COMMON_MAIN_SOURCE_SET_NAME) {
+              compileTaskProvider.configure {
+                // We replace the default library names with something more unique (the project path).
+                // This allows us to avoid the annoying issue of `duplicate library name: foo_commonMain`
+                // https://youtrack.jetbrains.com/issue/KT-57914
+                val projectPath = this@with.path.substring(1).replace(":", "_")
+                this as KotlinCompileCommon
+                moduleName.set("${projectPath}_commonMain")
+              }
+            }
+          }
+        }
+
+        configureKotlin()
+      }
     }
-  }
 }
 
 fun Project.addKspDependencyForAllTargets(dependencyNotation: Any) =
@@ -143,8 +143,7 @@ private fun Project.addKspDependencyForAllTargets(
       .filter { target ->
         // Don't add KSP for common target, only final platforms
         target.platformType != KotlinPlatformType.common
-      }
-      .forEach { target ->
+      }.forEach { target ->
         add(
           "ksp${target.targetName.capitalized()}$configurationNameSuffix",
           dependencyNotation,

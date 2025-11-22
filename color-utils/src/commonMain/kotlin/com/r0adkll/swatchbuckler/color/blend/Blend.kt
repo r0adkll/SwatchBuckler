@@ -35,14 +35,17 @@ object Blend {
    *   warmer/cooler variant of the design color's hue.
    */
   @JvmStatic
-  fun harmonize(designColor: Int, sourceColor: Int): Int {
+  fun harmonize(
+    designColor: Int,
+    sourceColor: Int,
+  ): Int {
     val fromHct = Hct.fromInt(designColor)
     val toHct = Hct.fromInt(sourceColor)
     val differenceDegrees = MathUtils.differenceDegrees(fromHct.hue, toHct.hue)
     val rotationDegrees = min(differenceDegrees * 0.5, 15.0)
     val outputHue =
       MathUtils.sanitizeDegreesDouble(
-        fromHct.hue + rotationDegrees * MathUtils.rotationDirection(fromHct.hue, toHct.hue)
+        fromHct.hue + rotationDegrees * MathUtils.rotationDirection(fromHct.hue, toHct.hue),
       )
     return Hct.from(outputHue, fromHct.chroma, fromHct.tone).toInt()
   }
@@ -57,7 +60,11 @@ object Blend {
    * @return from, with a hue blended towards to. Chroma and tone are constant.
    */
   @JvmStatic
-  fun hctHue(from: Int, to: Int, amount: Double): Int {
+  fun hctHue(
+    from: Int,
+    to: Int,
+    amount: Double,
+  ): Int {
     val ucs = cam16Ucs(from, to, amount)
     val ucsCam = Cam16.fromInt(ucs)
     val fromCam = Cam16.fromInt(from)
@@ -74,7 +81,11 @@ object Blend {
    * @return from, blended towards to. Hue, chroma, and tone will change.
    */
   @JvmStatic
-  fun cam16Ucs(from: Int, to: Int, amount: Double): Int {
+  fun cam16Ucs(
+    from: Int,
+    to: Int,
+    amount: Double,
+  ): Int {
     val fromCam = Cam16.fromInt(from)
     val toCam = Cam16.fromInt(to)
     val jstar = MathUtils.lerp(fromCam.jstar, toCam.jstar, amount)

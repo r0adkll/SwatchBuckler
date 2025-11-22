@@ -25,35 +25,36 @@ fun ThemeBuilderApp(
   var currentTheme by remember { mutableStateOf<Theme?>(null) }
 
   _root_ide_package_.com.r0adkll.swatchbuckler.app.common.theme.AppTheme(
-    colorScheme = if (useDarkColors) {
-      currentTheme?.darkColorScheme
-    } else {
-      currentTheme?.lightColorScheme
-    },
+    colorScheme =
+      if (useDarkColors) {
+        currentTheme?.darkColorScheme
+      } else {
+        currentTheme?.lightColorScheme
+      },
   ) {
     AppScaffold(
       leadingContent = {
         ThemeSourcePicker(
           isDarkMode = useDarkColors,
-          onDarkModeChanged = { useDarkColors = it },
-          onThemeGenerated = { currentTheme = it },
-          modifier = Modifier
-            .padding(
-              horizontal = 16.dp,
-              vertical = 16.dp,
-            )
-            .weight(1f),
+          onDarkModeChange = { useDarkColors = it },
+          onThemeChange = { currentTheme = it },
+          modifier =
+            Modifier
+              .padding(
+                horizontal = 16.dp,
+                vertical = 16.dp,
+              ).weight(1f),
         )
       },
       trailingContent = {
         WidgetGallery(
-          modifier = Modifier
-            .padding(
-              top = 16.dp,
-              bottom = 16.dp,
-              end = 16.dp,
-            )
-            .weight(1.5f),
+          modifier =
+            Modifier
+              .padding(
+                top = 16.dp,
+                bottom = 16.dp,
+                end = 16.dp,
+              ).weight(1.5f),
         )
       },
       modifier = modifier.fillMaxSize(),

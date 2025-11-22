@@ -14,11 +14,27 @@ fun Project.configureAndroid(computeNamespace: Boolean = true) {
     if (computeNamespace) {
       namespace = "app.campfire.${path.substring(1).replace(':', '.').replace("-", "_")}"
     }
-    compileSdkVersion(libs.findVersion("android-compileSdk").get().requiredVersion.toInt())
+    compileSdkVersion(
+      libs
+        .findVersion("android-compileSdk")
+        .get()
+        .requiredVersion
+        .toInt(),
+    )
 
     defaultConfig {
-      minSdk = libs.findVersion("android-minSdk").get().requiredVersion.toInt()
-      targetSdk = libs.findVersion("android-targetSdk").get().requiredVersion.toInt()
+      minSdk =
+        libs
+          .findVersion("android-minSdk")
+          .get()
+          .requiredVersion
+          .toInt()
+      targetSdk =
+        libs
+          .findVersion("android-targetSdk")
+          .get()
+          .requiredVersion
+          .toInt()
 
       testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

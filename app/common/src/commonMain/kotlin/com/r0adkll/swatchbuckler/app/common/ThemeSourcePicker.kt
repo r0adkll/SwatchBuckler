@@ -2,20 +2,59 @@ package com.r0adkll.swatchbuckler.app.common
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.material3.ButtonGroup
+import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.ToggleButton
+import androidx.compose.material3.ToggleButtonDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,12 +69,25 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.r0adkll.swatchbuckler.app.common.icons.*
-import com.r0adkll.swatchbuckler.compose.*
+import com.r0adkll.swatchbuckler.app.common.icons.AppIcons
+import com.r0adkll.swatchbuckler.app.common.icons.Burger
+import com.r0adkll.swatchbuckler.app.common.icons.Colors
+import com.r0adkll.swatchbuckler.app.common.icons.DarkMode
+import com.r0adkll.swatchbuckler.app.common.icons.Image
+import com.r0adkll.swatchbuckler.app.common.icons.ImageSearch
+import com.r0adkll.swatchbuckler.app.common.icons.LightMode
+import com.r0adkll.swatchbuckler.app.common.theme.seedColors
+import com.r0adkll.swatchbuckler.compose.Schema
+import com.r0adkll.swatchbuckler.compose.Swatch
+import com.r0adkll.swatchbuckler.compose.SwatchBuilder
+import com.r0adkll.swatchbuckler.compose.Theme
+import com.r0adkll.swatchbuckler.compose.ThemeBuilder
+import com.r0adkll.swatchbuckler.compose.util.Logger
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.compose.PickerResultLauncher
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import io.github.vinceglb.filekit.dialogs.compose.util.toImageBitmap
+import kotlin.time.measureTimedValue
 
 enum class ThemeSource {
   SeedColor,
@@ -45,52 +97,75 @@ enum class ThemeSource {
 val Int.asColor: Color
   get() = Color(this)
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ThemeSourcePicker(
   isDarkMode: Boolean,
-  onThemeGenerated: (Theme) -> Unit,
-  onDarkModeChanged: (Boolean) -> Unit,
+  onThemeChange: (Theme) -> Unit,
+  onDarkModeChange: (Boolean) -> Unit,
   modifier: Modifier = Modifier,
 ) {
+  val themeCallback by rememberUpdatedState(onThemeChange)
+
   Card(
     modifier = modifier.fillMaxHeight(),
     shape = MaterialTheme.shapes.large,
   ) {
     var currentSourceTab by remember { mutableStateOf(ThemeSource.SeedColor) }
-    var selectedSeedColor by remember { mutableStateOf(_root_ide_package_.com.r0adkll.swatchbuckler.app.common.theme.seedColors.first()) }
+    var selectedSeedColor by remember { mutableStateOf(seedColors.first()) }
     var selectedImage by remember { mutableStateOf<ImageBitmap?>(null) }
 
-    // Generate a theme from the selected seed color
-    LaunchedEffect(selectedSeedColor) {
-      val scheme = ThemeBuilder()
-        .seedColor(selectedSeedColor)
-        .dynamicSchema(Schema.Expressive)
-        .build()
+    val options =
+      listOf(
+        Schema.Content,
+        Schema.Expressive,
+        Schema.Fidelity,
+        Schema.FruitSalad,
+        Schema.Monochrome,
+        Schema.Neutral,
+        Schema.Rainbow,
+        Schema.TonalSpot,
+        Schema.Vibrant,
+      )
+    var selectedSchema by remember { mutableStateOf(options[1]) }
 
-      onThemeGenerated(scheme)
+    // Generate a theme from the selected seed color
+    LaunchedEffect(selectedSeedColor, selectedSchema) {
+      val (scheme, duration) =
+        measureTimedValue {
+          ThemeBuilder()
+            .seedColor(selectedSeedColor)
+            .dynamicSchema(selectedSchema)
+            .build()
+        }
+
+      Logger.log("ThemeSourcePicker", "Generated theme in $duration")
+
+      themeCallback(scheme)
     }
 
     ToggleButton(
       checked = isDarkMode,
-      onCheckedChange = onDarkModeChanged,
+      onCheckedChange = onDarkModeChange,
       modifier =
-        Modifier.fillMaxWidth()
+        Modifier
+          .fillMaxWidth()
           .padding(
             top = 16.dp,
             start = 16.dp,
             end = 16.dp,
-          )) {
-        Icon(
-          if (isDarkMode) AppIcons.LightMode else AppIcons.DarkMode,
-          contentDescription = null,
-        )
-        Spacer(Modifier.size(ToggleButtonDefaults.IconSpacing))
-        Text(
-          text = if (isDarkMode) "Light Mode" else "Dark Mode",
-          modifier = Modifier.padding(start = 8.dp),
-        )
-      }
+          ),
+    ) {
+      Icon(
+        if (isDarkMode) AppIcons.LightMode else AppIcons.DarkMode,
+        contentDescription = null,
+      )
+      Spacer(Modifier.size(ToggleButtonDefaults.IconSpacing))
+      Text(
+        text = if (isDarkMode) "Light Mode" else "Dark Mode",
+        modifier = Modifier.padding(start = 8.dp),
+      )
+    }
 
     ButtonGroup(overflowIndicator = {}, modifier = Modifier.fillMaxWidth().padding(16.dp)) {
       ThemeSource.entries.forEach { source ->
@@ -115,6 +190,46 @@ fun ThemeSourcePicker(
         )
       }
     }
+    var expandSchemaOptions by remember { mutableStateOf(false) }
+    val textFieldState = rememberTextFieldState(options[1]::class.simpleName!!)
+
+    ExposedDropdownMenuBox(
+      expanded = expandSchemaOptions,
+      onExpandedChange = { expandSchemaOptions = !expandSchemaOptions },
+      modifier = Modifier.padding(horizontal = 16.dp),
+    ) {
+      TextField(
+        // The `menuAnchor` modifier must be passed to the text field to handle
+        // expanding/collapsing the menu on click. A read-only text field has
+        // the anchor type `PrimaryNotEditable`.
+        modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
+        state = textFieldState,
+        readOnly = true,
+        lineLimits = TextFieldLineLimits.SingleLine,
+        label = { Text("Schema") },
+        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandSchemaOptions) },
+        colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+      )
+
+      ExposedDropdownMenu(
+        expanded = expandSchemaOptions,
+        onDismissRequest = { expandSchemaOptions = false },
+      ) {
+        options.forEachIndexed { _, option ->
+          DropdownMenuItem(
+            text = { Text(option::class.simpleName!!, style = MaterialTheme.typography.bodyLarge) },
+            onClick = {
+              selectedSchema = option
+
+              textFieldState.setTextAndPlaceCursorAtEnd(option::class.simpleName!!)
+              expandSchemaOptions = false
+            },
+            leadingIcon = { Icon(AppIcons.Burger, contentDescription = null) },
+            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+          )
+        }
+      }
+    }
 
     AnimatedContent(
       targetState = currentSourceTab,
@@ -129,17 +244,20 @@ fun ThemeSourcePicker(
       },
     ) { source ->
       when (source) {
-        ThemeSource.SeedColor ->
+        ThemeSource.SeedColor -> {
           SeedColorPicker(
             selectedColor = selectedSeedColor,
-            onColorPicked = { color -> selectedSeedColor = color },
+            onColorChange = { color -> selectedSeedColor = color },
           )
-        ThemeSource.Image ->
+        }
+
+        ThemeSource.Image -> {
           SourceImagePicker(
             image = selectedImage,
-            onImagePicked = { image -> selectedImage = image },
-            onColorPicked = { color -> selectedSeedColor = color },
+            onImageChange = { image -> selectedImage = image },
+            onColorChange = { color -> selectedSeedColor = color },
           )
+        }
       }
     }
   }
@@ -148,8 +266,8 @@ fun ThemeSourcePicker(
 @Composable
 private fun SeedColorPicker(
   selectedColor: Color,
-  onColorPicked: (Color) -> Unit = {},
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  onColorChange: (Color) -> Unit = {},
 ) {
   LazyVerticalGrid(
     columns = GridCells.Adaptive(ColorChoiceSize),
@@ -158,11 +276,11 @@ private fun SeedColorPicker(
     verticalArrangement = Arrangement.spacedBy(8.dp),
     contentPadding = PaddingValues(16.dp),
   ) {
-    items(_root_ide_package_.com.r0adkll.swatchbuckler.app.common.theme.seedColors) { color ->
+    items(seedColors) { color ->
       ColorChoiceButton(
         color = color,
         selected = color == selectedColor,
-        onClick = { onColorPicked(color) },
+        onClick = { onColorChange(color) },
       )
     }
   }
@@ -188,7 +306,6 @@ private fun ColorChoiceButton(
     modifier =
       modifier
         .clip(CircleShape)
-        .clickable(onClick = onClick)
         .size(ColorChoiceSize)
         .scale(if (selected) 1.2f else 1f)
         .background(color = color, shape = CircleShape)
@@ -196,7 +313,7 @@ private fun ColorChoiceButton(
           width = 2.dp,
           color = borderColor,
           shape = CircleShape,
-        ),
+        ).clickable(onClick = onClick),
   )
 }
 
@@ -206,17 +323,19 @@ internal val PickerCornerRadius = 24.dp
 @Composable
 private fun SourceImagePicker(
   image: ImageBitmap?,
-  onImagePicked: (ImageBitmap) -> Unit,
-  onColorPicked: (Color) -> Unit,
+  onImageChange: (ImageBitmap) -> Unit,
+  onColorChange: (Color) -> Unit,
   modifier: Modifier = Modifier,
 ) {
+  val imageChangeCallback by rememberUpdatedState(onImageChange)
+
   var selectedImageFile by remember { mutableStateOf<PlatformFile?>(null) }
   var selectedSwatch by remember { mutableStateOf<Swatch?>(null) }
 
   LaunchedEffect(selectedImageFile) {
     if (selectedImageFile != null) {
       val bitmap = selectedImageFile!!.toImageBitmap()
-      onImagePicked(bitmap)
+      imageChangeCallback(bitmap)
     }
   }
 
@@ -242,9 +361,10 @@ private fun SourceImagePicker(
     )
 
   // Pick a single file
-  val launcher = rememberFilePickerLauncher { file ->
-    file?.let { selectedImageFile = it }
-  }
+  val launcher =
+    rememberFilePickerLauncher { file ->
+      file?.let { selectedImageFile = it }
+    }
 
   Column(
     modifier =
@@ -273,10 +393,11 @@ private fun SourceImagePicker(
           it,
           contentDescription = null,
           contentScale = ContentScale.Crop,
-          modifier = Modifier
-            .fillMaxSize()
-            .clip(shape)
-            .border(width = 2.dp, color = borderColor, shape = shape),
+          modifier =
+            Modifier
+              .fillMaxSize()
+              .clip(shape)
+              .border(width = 2.dp, color = borderColor, shape = shape),
         )
       }
     }
@@ -290,14 +411,14 @@ private fun SourceImagePicker(
         ColorChoiceButton(
           color = swatch.dominant,
           selected = false,
-          onClick = { onColorPicked(swatch.dominant) },
+          onClick = { onColorChange(swatch.dominant) },
         )
 
         swatch.vibrant.forEach { color ->
           ColorChoiceButton(
             color = color,
             selected = false,
-            onClick = { onColorPicked(color) },
+            onClick = { onColorChange(color) },
           )
         }
       }
@@ -322,8 +443,7 @@ private fun EmptyPickerBox(
         .background(
           color = MaterialTheme.colorScheme.background.copy(alpha = 0.5f),
           shape = shape,
-        )
-        .drawWithContent {
+        ).drawWithContent {
           drawContent()
           val offsetX = 0.dp.toPx()
           val offsetY = 0.dp.toPx()
@@ -358,8 +478,7 @@ private fun EmptyPickerBox(
                 height = size.height - (offsetY * 4f),
               ),
           )
-        }
-        .padding(16.dp),
+        }.padding(16.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
   ) {
@@ -367,7 +486,8 @@ private fun EmptyPickerBox(
       AppIcons.ImageSearch,
       contentDescription = null,
       modifier =
-        Modifier.background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
+        Modifier
+          .background(MaterialTheme.colorScheme.secondaryContainer, CircleShape)
           .size(72.dp)
           .padding(16.dp),
       tint = MaterialTheme.colorScheme.onSecondaryContainer,

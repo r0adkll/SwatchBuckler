@@ -59,12 +59,11 @@ import com.r0adkll.swatchbuckler.app.common.icons.Weights
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun WidgetGallery(
-  modifier: Modifier = Modifier,
-) {
+fun WidgetGallery(modifier: Modifier = Modifier) {
   Card(
-    modifier = modifier
-      .fillMaxHeight(),
+    modifier =
+      modifier
+        .fillMaxHeight(),
     shape = MaterialTheme.shapes.large,
   ) {
     Column(
@@ -84,12 +83,11 @@ fun WidgetGallery(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun ButtonRow(
-  modifier: Modifier = Modifier,
-) {
+private fun ButtonRow(modifier: Modifier = Modifier) {
   Row(
-    modifier = modifier
-      .fillMaxWidth(),
+    modifier =
+      modifier
+        .fillMaxWidth(),
     horizontalArrangement = Arrangement.spacedBy(16.dp),
     verticalAlignment = Alignment.CenterVertically,
   ) {
@@ -153,9 +151,7 @@ private fun ButtonRow(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
-private fun ExpandingToolbarRow(
-  modifier: Modifier = Modifier,
-) {
+private fun ExpandingToolbarRow(modifier: Modifier = Modifier) {
   var expanded by remember { mutableStateOf(true) }
   HorizontalFloatingToolbar(
     expanded = expanded,
@@ -165,7 +161,7 @@ private fun ExpandingToolbarRow(
       TooltipBox(
         positionProvider =
           TooltipDefaults.rememberTooltipPositionProvider(
-            TooltipAnchorPosition.Above
+            TooltipAnchorPosition.Above,
           ),
         tooltip = { PlainTooltip { Text("Localized description") } },
         state = rememberTooltipState(),
@@ -173,7 +169,7 @@ private fun ExpandingToolbarRow(
         // Match the FAB to the vibrantColors. See also
         // StandardFloatingActionButton.
         FloatingToolbarDefaults.VibrantFloatingActionButton(
-          onClick = { expanded = !expanded }
+          onClick = { expanded = !expanded },
         ) {
           Icon(_root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Add, null)
         }
@@ -186,7 +182,7 @@ private fun ExpandingToolbarRow(
     TooltipBox(
       positionProvider =
         TooltipDefaults.rememberTooltipPositionProvider(
-          TooltipAnchorPosition.Above
+          TooltipAnchorPosition.Above,
         ),
       tooltip = { PlainTooltip { Text("Localized description") } },
       state = rememberTooltipState(),
@@ -195,13 +191,16 @@ private fun ExpandingToolbarRow(
         onClick = { /* doSomething() */ },
         Modifier.focusProperties { canFocus = expanded },
       ) {
-        Icon(_root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Colors, contentDescription = "Localized description")
+        Icon(
+          _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Colors,
+          contentDescription = "Localized description",
+        )
       }
     }
     TooltipBox(
       positionProvider =
         TooltipDefaults.rememberTooltipPositionProvider(
-          TooltipAnchorPosition.Above
+          TooltipAnchorPosition.Above,
         ),
       tooltip = { PlainTooltip { Text("Localized description") } },
       state = rememberTooltipState(),
@@ -210,13 +209,16 @@ private fun ExpandingToolbarRow(
         onClick = { /* doSomething() */ },
         Modifier.focusProperties { canFocus = expanded },
       ) {
-        Icon(_root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Image, contentDescription = "Localized description")
+        Icon(
+          _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Image,
+          contentDescription = "Localized description",
+        )
       }
     }
     TooltipBox(
       positionProvider =
         TooltipDefaults.rememberTooltipPositionProvider(
-          TooltipAnchorPosition.Above
+          TooltipAnchorPosition.Above,
         ),
       tooltip = { PlainTooltip { Text("Localized description") } },
       state = rememberTooltipState(),
@@ -234,7 +236,7 @@ private fun ExpandingToolbarRow(
     TooltipBox(
       positionProvider =
         TooltipDefaults.rememberTooltipPositionProvider(
-          TooltipAnchorPosition.Above
+          TooltipAnchorPosition.Above,
         ),
       tooltip = { PlainTooltip { Text("Localized description") } },
       state = rememberTooltipState(),
@@ -252,7 +254,7 @@ private fun ExpandingToolbarRow(
     TooltipBox(
       positionProvider =
         TooltipDefaults.rememberTooltipPositionProvider(
-          TooltipAnchorPosition.Above
+          TooltipAnchorPosition.Above,
         ),
       tooltip = { PlainTooltip { Text("Localized description") } },
       state = rememberTooltipState(),
@@ -270,14 +272,16 @@ private fun ExpandingToolbarRow(
   }
 }
 
-
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
-private fun ToolbarRow(
-  modifier: Modifier = Modifier,
-) {
+private fun ToolbarRow(modifier: Modifier = Modifier) {
   val options = listOf("Burger", "Lift", "Paint")
-  val unCheckedIcons = listOf(_root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Burger, _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Weights, _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Colors)
+  val unCheckedIcons =
+    listOf(
+      _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Burger,
+      _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Weights,
+      _root_ide_package_.com.r0adkll.swatchbuckler.app.common.icons.AppIcons.Colors,
+    )
   var checked by remember { mutableIntStateOf(0) }
 
   Row(
@@ -310,9 +314,7 @@ private fun ToolbarRow(
 }
 
 @Composable
-private fun ControlRow(
-  modifier: Modifier = Modifier,
-) {
+private fun ControlRow(modifier: Modifier = Modifier) {
   Row(
     modifier = modifier,
     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -347,9 +349,7 @@ private fun ControlRow(
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-private fun IndicatorRow(
-  modifier: Modifier = Modifier,
-) {
+private fun IndicatorRow(modifier: Modifier = Modifier) {
   Row(
     modifier = modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -371,16 +371,15 @@ private fun IndicatorRow(
 }
 
 @Composable
-private fun SliderRow(
-  modifier: Modifier = Modifier,
-) {
+private fun SliderRow(modifier: Modifier = Modifier) {
   var range by remember { mutableStateOf(25f..60f) }
   RangeSlider(
     value = range,
     onValueChange = { range = it },
-    modifier = modifier
-      .fillMaxWidth()
-      .padding(vertical = 24.dp),
+    modifier =
+      modifier
+        .fillMaxWidth()
+        .padding(vertical = 24.dp),
     valueRange = 0f..100f,
     steps = 10,
   )

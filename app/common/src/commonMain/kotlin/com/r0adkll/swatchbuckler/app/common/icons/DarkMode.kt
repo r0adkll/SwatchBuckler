@@ -14,14 +14,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val AppIcons.DarkMode: ImageVector by
   lazy(LazyThreadSafetyMode.NONE) {
-    ImageVector.Builder(
+    ImageVector
+      .Builder(
         name = "DarkMode",
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
         viewportWidth = 960f,
         viewportHeight = 960f,
-      )
-      .apply {
+      ).apply {
         path(fill = SolidColor(Color(0xFFE8EAED))) {
           moveTo(480f, 840f)
           quadToRelative(-151f, 0f, -255.5f, -104.5f)
@@ -62,8 +62,7 @@ val AppIcons.DarkMode: ImageVector by
           moveTo(470f, 490f)
           close()
         }
-      }
-      .build()
+      }.build()
   }
 
 @Preview

@@ -20,7 +20,10 @@ class QuantizerMap : Quantizer {
   var colorToCount: MutableMap<Int, Int>? = null
     private set
 
-  override fun quantize(pixels: IntArray, maxColors: Int): QuantizerResult {
+  override fun quantize(
+    pixels: IntArray,
+    maxColors: Int,
+  ): QuantizerResult {
     val pixelByCount: MutableMap<Int, Int> = LinkedHashMap()
     for (pixel in pixels) {
       val currentPixelCount = pixelByCount[pixel]

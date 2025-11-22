@@ -33,11 +33,13 @@ import kotlin.math.roundToInt
  * Analogous colors, complementary color, and cache to efficiently, lazily, generate data for
  * calculations when needed.
  */
-class TemperatureCache(val input: Hct) {
-  private var _precomputedComplement: Hct? = null
-  private var _precomputedHctsByTemp: List<Hct>? = null
-  private var _precomputedHctsByHue: List<Hct>? = null
-  private var _precomputedTempsByHct: Map<Hct, Double>? = null
+class TemperatureCache(
+  val input: Hct,
+) {
+  private var precomputedComplement: Hct? = null
+  private var precomputedHctsByTemp: List<Hct>? = null
+  private var precomputedHctsByHue: List<Hct>? = null
+  private var precomputedTempsByHct: Map<Hct, Double>? = null
 
   /**
    * A color that complements the input color aesthetically.
@@ -47,8 +49,8 @@ class TemperatureCache(val input: Hct) {
    */
   val complement: Hct
     get() {
-      if (_precomputedComplement != null) {
-        return _precomputedComplement!!
+      if (precomputedComplement != null) {
+        return precomputedComplement!!
       }
       val coldestHue = coldest.hue
       val coldestTemp = tempsByHct[coldest]!!
@@ -59,7 +61,7 @@ class TemperatureCache(val input: Hct) {
         isBetween(
           input.hue,
           coldestHue,
-          warmestHue
+          warmestHue,
         )
       val startHue = if (startHueIsColdestToWarmest) warmestHue else coldestHue
       val endHue = if (startHueIsColdestToWarmest) coldestHue else warmestHue
@@ -75,7 +77,7 @@ class TemperatureCache(val input: Hct) {
         if (!isBetween(
             hue,
             startHue,
-            endHue
+            endHue,
           )
         ) {
           hueAddend += 1.0
@@ -90,8 +92,8 @@ class TemperatureCache(val input: Hct) {
         }
         hueAddend += 1.0
       }
-      _precomputedComplement = answer
-      return _precomputedComplement!!
+      precomputedComplement = answer
+      return precomputedComplement!!
     }
 
   /**
@@ -99,9 +101,7 @@ class TemperatureCache(val input: Hct) {
    *
    * The colors are equidistant in temperature and adjacent in hue.
    */
-  fun getAnalogousColors(): List<Hct> {
-    return getAnalogousColors(5, 12)
-  }
+  fun getAnalogousColors(): List<Hct> = getAnalogousColors(5, 12)
 
   /**
    * A set of colors with differing hues, equidistant in temperature.
@@ -114,7 +114,10 @@ class TemperatureCache(val input: Hct) {
    * @param count The number of colors to return, includes the input color.
    * @param divisions The number of divisions on the color wheel.
    */
-  fun getAnalogousColors(count: Int, divisions: Int): List<Hct> {
+  fun getAnalogousColors(
+    count: Int,
+    divisions: Int,
+  ): List<Hct> {
     // The starting hue is the hue of the input color.
     val startHue = input.hue.roundToInt()
     val startHct = hctsByHue[startHue]
@@ -222,8 +225,8 @@ class TemperatureCache(val input: Hct) {
    */
   private val hctsByHue: List<Hct>
     get() {
-      if (_precomputedHctsByHue != null) {
-        return _precomputedHctsByHue!!
+      if (precomputedHctsByHue != null) {
+        return precomputedHctsByHue!!
       }
       val hcts: MutableList<Hct> = ArrayList()
       var hue = 0.0
@@ -233,7 +236,7 @@ class TemperatureCache(val input: Hct) {
         hue += 1.0
       }
       val unmodifiableList = hcts.toList()
-      _precomputedHctsByHue = unmodifiableList
+      precomputedHctsByHue = unmodifiableList
       return unmodifiableList
     }
 
@@ -244,21 +247,21 @@ class TemperatureCache(val input: Hct) {
    */
   private val hctsByTemp: List<Hct>
     get() {
-      if (_precomputedHctsByTemp != null) {
-        return _precomputedHctsByTemp!!
+      if (precomputedHctsByTemp != null) {
+        return precomputedHctsByTemp!!
       }
       val hcts: MutableList<Hct> = ArrayList(hctsByHue)
       hcts.add(input)
       hcts.sortWith(compareBy { tempsByHct[it]!! })
-      _precomputedHctsByTemp = hcts
+      precomputedHctsByTemp = hcts
       return hcts
     }
 
   /** Keys of HCTs in getHctsByTemp, values of raw temperature. */
   private val tempsByHct: Map<Hct, Double>
     get() {
-      if (_precomputedTempsByHct != null) {
-        return _precomputedTempsByHct!!
+      if (precomputedTempsByHct != null) {
+        return precomputedTempsByHct!!
       }
       val allHcts: MutableList<Hct> = ArrayList(hctsByHue)
       allHcts.add(input)
@@ -266,7 +269,7 @@ class TemperatureCache(val input: Hct) {
       for (hct in allHcts) {
         temperaturesByHct[hct] = rawTemperature(hct)
       }
-      _precomputedTempsByHct = temperaturesByHct
+      precomputedTempsByHct = temperaturesByHct
       return temperaturesByHct
     }
 
@@ -292,22 +295,24 @@ class TemperatureCache(val input: Hct) {
      */
     fun rawTemperature(color: Hct): Double {
       val lab = ColorUtils.labFromArgb(color.toInt())
-      val hue = MathUtils.sanitizeDegreesDouble(
-        MathUtils.toDegrees(atan2(lab[2], lab[1])))
+      val hue =
+        MathUtils.sanitizeDegreesDouble(MathUtils.toDegrees(atan2(lab[2], lab[1])))
       val chroma = hypot(lab[1], lab[2])
       return -0.5 +
-        0.02 * chroma.pow(1.07) * cos(
-        MathUtils.toRadians(
-          MathUtils.sanitizeDegreesDouble(hue - 50.0)))
+        0.02 * chroma.pow(1.07) *
+        cos(MathUtils.toRadians(MathUtils.sanitizeDegreesDouble(hue - 50.0)))
     }
 
     /** Determines if an angle is between two other angles, rotating clockwise. */
-    private fun isBetween(angle: Double, a: Double, b: Double): Boolean {
-      return if (a < b) {
+    private fun isBetween(
+      angle: Double,
+      a: Double,
+      b: Double,
+    ): Boolean =
+      if (a < b) {
         a <= angle && angle <= b
       } else {
         a <= angle || angle <= b
       }
-    }
   }
 }

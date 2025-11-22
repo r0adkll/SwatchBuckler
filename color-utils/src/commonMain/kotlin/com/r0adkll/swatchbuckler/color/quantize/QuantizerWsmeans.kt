@@ -35,9 +35,7 @@ object QuantizerWsmeans {
     var index = -1
     var distance = -1.0
 
-    override fun compareTo(other: Distance): Int {
-      return distance.compareTo(other.distance)
-    }
+    override fun compareTo(other: Distance): Int = distance.compareTo(other.distance)
   }
 
   private const val MAX_ITERATIONS = 10
@@ -57,7 +55,11 @@ object QuantizerWsmeans {
    * @return Map with keys of colors in ARGB format, values of how many of the input pixels belong
    *   to the color.
    */
-  fun quantize(inputPixels: IntArray, startingClusters: IntArray, maxColors: Int): Map<Int, Int> {
+  fun quantize(
+    inputPixels: IntArray,
+    startingClusters: IntArray,
+    maxColors: Int,
+  ): Map<Int, Int> {
     // Uses a seeded random number generator to ensure consistent results.
     val random = Random(0x42688L)
     val pixelToCount: MutableMap<Int, Int> = LinkedHashMap()

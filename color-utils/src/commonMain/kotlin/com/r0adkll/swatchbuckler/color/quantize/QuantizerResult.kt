@@ -16,4 +16,6 @@
 package com.r0adkll.swatchbuckler.color.quantize
 
 /** Represents result of a quantizer run */
-data class QuantizerResult(val colorToCount: Map<Int, Int>)
+data class QuantizerResult(
+  val colorToCount: Map<Int, Int>,
+)

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git diff --name-only -z --cached --relative -- '*.kt' '*.kts' | scripts/ktlint --relative --patterns-from-stdin='' --ruleset=scripts/ktlint-compose-0.4.28-all.jar

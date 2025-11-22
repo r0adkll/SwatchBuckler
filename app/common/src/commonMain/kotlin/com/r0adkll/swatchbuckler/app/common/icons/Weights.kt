@@ -14,14 +14,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val AppIcons.Weights: ImageVector by
   lazy(LazyThreadSafetyMode.NONE) {
-    ImageVector.Builder(
+    ImageVector
+      .Builder(
         name = "Weights",
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
         viewportWidth = 960f,
         viewportHeight = 960f,
-      )
-      .apply {
+      ).apply {
         path(fill = SolidColor(Color(0xFFE8EAED))) {
           moveTo(282f, 338f)
           lineTo(168f, 452f)
@@ -80,8 +80,7 @@ val AppIcons.Weights: ImageVector by
           lineToRelative(-340f, -340f)
           close()
         }
-      }
-      .build()
+      }.build()
   }
 
 @Preview

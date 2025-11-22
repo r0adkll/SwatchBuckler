@@ -8,7 +8,7 @@ public interface Logger {
 
   public companion object : Logger {
     // TODO: Setting default logger for development, should be null when shipped
-    public var delegate: Logger? = SystemLogger
+    public var delegate: Logger? = null
 
     override fun log(
       tag: String?,

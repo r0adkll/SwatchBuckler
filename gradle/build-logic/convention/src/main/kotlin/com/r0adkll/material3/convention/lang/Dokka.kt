@@ -6,7 +6,7 @@ import org.gradle.kotlin.dsl.configure
 import org.jetbrains.dokka.gradle.DokkaExtension
 
 fun Project.configureRootDokka() {
-  with (pluginManager) {
+  with(pluginManager) {
     libs.findPlugin("dokka").ifPresent { apply(it.get().pluginId) }
   }
 
@@ -18,7 +18,4 @@ fun Project.configureRootDokka() {
   }
 }
 
-
-
-internal fun Project.dokka(action: DokkaExtension.() -> Unit) =
-  extensions.configure<DokkaExtension>(action)
+internal fun Project.dokka(action: DokkaExtension.() -> Unit) = extensions.configure<DokkaExtension>(action)

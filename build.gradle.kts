@@ -9,5 +9,11 @@ plugins {
   alias(libs.plugins.dokka) apply false
   alias(libs.plugins.kotlinMultiplatform) apply false
   alias(libs.plugins.mavenPublish) apply false
-  alias(libs.plugins.spotless) apply false
+}
+
+tasks.register<Copy>("bootstrap") {
+  from("scripts/hooks") {
+    include("**/*")
+  }
+  into(".git/hooks")
 }

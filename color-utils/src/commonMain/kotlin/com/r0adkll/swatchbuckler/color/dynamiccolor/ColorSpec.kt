@@ -130,9 +130,15 @@ interface ColorSpec {
   // ////////////////////////////////////////////////////////////////
   // Color value calculations //
   // ////////////////////////////////////////////////////////////////
-  fun getHct(scheme: DynamicScheme, color: DynamicColor): Hct
+  fun getHct(
+    scheme: DynamicScheme,
+    color: DynamicColor,
+  ): Hct
 
-  fun getTone(scheme: DynamicScheme, color: DynamicColor): Double
+  fun getTone(
+    scheme: DynamicScheme,
+    color: DynamicColor,
+  ): Double
 
   // ////////////////////////////////////////////////////////////////
   // Scheme Palettes //

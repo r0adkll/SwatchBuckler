@@ -65,9 +65,10 @@ data class DynamicColor(
   val isBackground: Boolean = false,
   val chromaMultiplier: ((DynamicScheme) -> Double)? = null,
   val background: ((DynamicScheme) -> DynamicColor?)? = null,
-  val tone: (DynamicScheme) -> Double = getInitialToneFromBackground(
-    background,
-  ),
+  val tone: (DynamicScheme) -> Double =
+    getInitialToneFromBackground(
+      background,
+    ),
   val secondBackground: ((DynamicScheme) -> DynamicColor?)? = null,
   val contrastCurve: ((DynamicScheme) -> ContrastCurve?)? = null,
   val toneDeltaPair: ((DynamicScheme) -> ToneDeltaPair?)? = null,
@@ -132,9 +133,7 @@ data class DynamicColor(
   }
 
   /** Returns the tone in HCT, ranging from 0 to 100, of the resolved color given scheme. */
-  fun getTone(scheme: DynamicScheme): Double {
-    return ColorSpecs.get(scheme.specVersion).getTone(scheme, this)
-  }
+  fun getTone(scheme: DynamicScheme): Double = ColorSpecs.get(scheme.specVersion).getTone(scheme, this)
 
   companion object {
     /**
@@ -146,7 +145,10 @@ data class DynamicColor(
      * @param argb The source color from which to extract the hue and chroma.
      */
     @JvmStatic
-    fun fromArgb(name: String, argb: Int): DynamicColor {
+    fun fromArgb(
+      name: String,
+      argb: Int,
+    ): DynamicColor {
       val hct = Hct.fromInt(argb)
       val palette = TonalPalette.fromInt(argb)
       return DynamicColor(
@@ -161,7 +163,10 @@ data class DynamicColor(
      * that is as close to ratio as possible.
      */
     @JvmStatic
-    fun foregroundTone(bgTone: Double, ratio: Double): Double {
+    fun foregroundTone(
+      bgTone: Double,
+      ratio: Double,
+    ): Double {
       val lighterTone = Contrast.lighterUnsafe(bgTone, ratio)
       val darkerTone = Contrast.darkerUnsafe(bgTone, ratio)
       val lighterRatio = Contrast.ratioOfTones(lighterTone, bgTone)
@@ -193,13 +198,12 @@ data class DynamicColor(
      * supporting it.
      */
     @JvmStatic
-    fun enableLightForeground(tone: Double): Double {
-      return if (tonePrefersLightForeground(tone) && !toneAllowsLightForeground(tone)) {
+    fun enableLightForeground(tone: Double): Double =
+      if (tonePrefersLightForeground(tone) && !toneAllowsLightForeground(tone)) {
         49.0
       } else {
         tone
       }
-    }
 
     /**
      * People prefer white foregrounds on ~T60-70. Observed over time, and also by Andrew Somers
@@ -212,20 +216,14 @@ data class DynamicColor(
      * adjusted. Therefore, 60 is excluded here.
      */
     @JvmStatic
-    fun tonePrefersLightForeground(tone: Double): Boolean {
-      return tone.roundToInt() < 60
-    }
+    fun tonePrefersLightForeground(tone: Double): Boolean = tone.roundToInt() < 60
 
     /** Tones less than ~T50 always permit white at 4.5 contrast. */
     @JvmStatic
-    fun toneAllowsLightForeground(tone: Double): Boolean {
-      return tone.roundToInt() <= 49
-    }
+    fun toneAllowsLightForeground(tone: Double): Boolean = tone.roundToInt() <= 49
 
     @JvmStatic
-    fun getInitialToneFromBackground(
-      background: ((DynamicScheme) -> DynamicColor?)?,
-    ): (DynamicScheme) -> Double {
+    fun getInitialToneFromBackground(background: ((DynamicScheme) -> DynamicColor?)?): (DynamicScheme) -> Double {
       if (background == null) {
         return { 50.0 }
       }
@@ -249,24 +247,26 @@ fun DynamicColor.extendSpecVersion(
       (if (scheme.specVersion == specVersion) extendedColor.tone else this.tone).invoke(scheme)
     },
     chromaMultiplier = { scheme ->
-      (if (scheme.specVersion == specVersion) {
-        extendedColor.chromaMultiplier
-      } else {
-        this.chromaMultiplier
-      })
-        ?.invoke(scheme) ?: 1.0
+      (
+        if (scheme.specVersion == specVersion) {
+          extendedColor.chromaMultiplier
+        } else {
+          this.chromaMultiplier
+        }
+      )?.invoke(scheme) ?: 1.0
     },
     background = { scheme ->
       (if (scheme.specVersion == specVersion) extendedColor.background else this.background)
         ?.invoke(scheme)
     },
     secondBackground = { scheme ->
-      (if (scheme.specVersion == specVersion) {
-        extendedColor.secondBackground
-      } else {
-        this.secondBackground
-      })
-        ?.invoke(scheme)
+      (
+        if (scheme.specVersion == specVersion) {
+          extendedColor.secondBackground
+        } else {
+          this.secondBackground
+        }
+      )?.invoke(scheme)
     },
     contrastCurve = { scheme ->
       (if (scheme.specVersion == specVersion) extendedColor.contrastCurve else this.contrastCurve)

@@ -51,8 +51,10 @@ data class ToneDeltaPair(
   enum class DeltaConstraint {
     // The tone of roleA must be an exact delta away from the tone of roleB.
     EXACT,
+
     // The tonal distance of roleA and roleB must be at most delta.
     NEARER,
+
     // The tonal distance of roleA and roleB must be at least delta.
     FARTHER,
   }
@@ -68,11 +70,14 @@ data class ToneDeltaPair(
   enum class TonePolarity {
     // The tone of roleA is always darker than the tone of roleB.
     DARKER,
+
     // The tone of roleA is always lighter than the tone of roleB.
     LIGHTER,
+
     // The tone of roleA is darker than the tone of roleB in light mode, and lighter than the tone
     // ofroleB in dark mode.
     RELATIVE_DARKER,
+
     // The tone of roleA is lighter than the tone of roleB in light mode, and darker than the tone
     // ofroleB in dark mode.
     RELATIVE_LIGHTER,

@@ -28,23 +28,27 @@ class SchemeExpressive(
   contrastLevel: Double,
   specVersion: SpecVersion = DEFAULT_SPEC_VERSION,
   platform: Platform = DEFAULT_PLATFORM,
-) :
-  DynamicScheme(
+) : DynamicScheme(
     sourceColorHct,
     Variant.EXPRESSIVE,
     isDark,
     contrastLevel,
     platform,
     specVersion,
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getPrimaryPalette(Variant.EXPRESSIVE, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getSecondaryPalette(Variant.EXPRESSIVE, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getTertiaryPalette(Variant.EXPRESSIVE, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralPalette(Variant.EXPRESSIVE, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralVariantPalette(
         Variant.EXPRESSIVE,
         sourceColorHct,
@@ -52,6 +56,7 @@ class SchemeExpressive(
         platform,
         contrastLevel,
       ),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getErrorPalette(Variant.EXPRESSIVE, sourceColorHct, isDark, platform, contrastLevel),
   )

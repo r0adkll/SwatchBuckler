@@ -105,7 +105,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             3.0,
             4.5,
-            7.0
+            7.0,
           )
         },
       )
@@ -157,12 +157,16 @@ class ColorSpec2021 : ColorSpec {
         name = "surface_container_lowest",
         palette = { scheme -> scheme.neutralPalette },
         tone = { scheme ->
-          if (scheme.isDark) ContrastCurve(
-            4.0,
-            4.0,
-            2.0,
-            0.0
-          ).get(scheme.contrastLevel) else 100.0
+          if (scheme.isDark) {
+            ContrastCurve(
+              4.0,
+              4.0,
+              2.0,
+              0.0,
+            ).get(scheme.contrastLevel)
+          } else {
+            100.0
+          }
         },
         isBackground = true,
       )
@@ -247,7 +251,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -273,7 +277,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -299,7 +303,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -316,7 +320,7 @@ class ColorSpec2021 : ColorSpec {
             1.5,
             3.0,
             4.5,
-            7.0
+            7.0,
           )
         },
       )
@@ -333,7 +337,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
       )
@@ -343,14 +347,16 @@ class ColorSpec2021 : ColorSpec {
       DynamicColor(
         name = "shadow",
         palette = { scheme -> scheme.neutralPalette },
-        tone = { 0.0 })
+        tone = { 0.0 },
+      )
 
   override val scrim: DynamicColor
     get() =
       DynamicColor(
         name = "scrim",
         palette = { scheme -> scheme.neutralPalette },
-        tone = { 0.0 })
+        tone = { 0.0 },
+      )
 
   override val surfaceTint: DynamicColor
     get() =
@@ -383,7 +389,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            7.0
+            7.0,
           )
         },
         toneDeltaPair = {
@@ -419,7 +425,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -445,7 +451,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -469,7 +475,7 @@ class ColorSpec2021 : ColorSpec {
           if (isFidelity(scheme)) {
             DynamicColor.foregroundTone(
               primaryContainer.tone.invoke(scheme),
-              4.5
+              4.5,
             )
           } else if (isMonochrome(scheme)) {
             if (scheme.isDark) 0.0 else 100.0
@@ -483,7 +489,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -500,7 +506,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            7.0
+            7.0,
           )
         },
       )
@@ -521,7 +527,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            7.0
+            7.0,
           )
         },
         toneDeltaPair = {
@@ -557,7 +563,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -589,7 +595,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -617,7 +623,7 @@ class ColorSpec2021 : ColorSpec {
           } else {
             DynamicColor.foregroundTone(
               secondaryContainer.tone.invoke(scheme),
-              4.5
+              4.5,
             )
           }
         },
@@ -627,7 +633,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -654,7 +660,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            7.0
+            7.0,
           )
         },
         toneDeltaPair = {
@@ -690,7 +696,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -717,7 +723,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -745,7 +751,7 @@ class ColorSpec2021 : ColorSpec {
           } else {
             DynamicColor.foregroundTone(
               tertiaryContainer.tone.invoke(scheme),
-              4.5
+              4.5,
             )
           }
         },
@@ -755,7 +761,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -776,7 +782,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            7.0
+            7.0,
           )
         },
         toneDeltaPair = {
@@ -806,7 +812,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -824,7 +830,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -857,7 +863,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -878,7 +884,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -905,7 +911,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -932,7 +938,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -950,7 +956,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -971,7 +977,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -998,7 +1004,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -1025,7 +1031,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -1043,7 +1049,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -1064,7 +1070,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -1091,7 +1097,7 @@ class ColorSpec2021 : ColorSpec {
             1.0,
             1.0,
             3.0,
-            4.5
+            4.5,
           )
         },
         toneDeltaPair = {
@@ -1118,7 +1124,7 @@ class ColorSpec2021 : ColorSpec {
             4.5,
             7.0,
             11.0,
-            21.0
+            21.0,
           )
         },
       )
@@ -1136,7 +1142,7 @@ class ColorSpec2021 : ColorSpec {
             3.0,
             4.5,
             7.0,
-            11.0
+            11.0,
           )
         },
       )
@@ -1144,14 +1150,15 @@ class ColorSpec2021 : ColorSpec {
   // ////////////////////////////////////////////////////////////////
   // Other //
   // ////////////////////////////////////////////////////////////////
-  override fun highestSurface(scheme: DynamicScheme): DynamicColor {
-    return if (scheme.isDark) surfaceBright else surfaceDim
-  }
+  override fun highestSurface(scheme: DynamicScheme): DynamicColor = if (scheme.isDark) surfaceBright else surfaceDim
 
   // ///////////////////////////////////////////////////////////////
   // Color value calculations //
   // ///////////////////////////////////////////////////////////////
-  override fun getHct(scheme: DynamicScheme, color: DynamicColor): Hct {
+  override fun getHct(
+    scheme: DynamicScheme,
+    color: DynamicColor,
+  ): Hct {
     // This is crucial for aesthetics: we aren't simply the taking the standard color
     // and changing its tone for contrast. Rather, we find the tone for contrast, then
     // use the specified chroma from the palette to construct a new color.
@@ -1162,7 +1169,10 @@ class ColorSpec2021 : ColorSpec {
     return color.palette.invoke(scheme).getHct(tone)
   }
 
-  override fun getTone(scheme: DynamicScheme, color: DynamicColor): Double {
+  override fun getTone(
+    scheme: DynamicScheme,
+    color: DynamicColor,
+  ): Double {
     val decreasingContrast = scheme.contrastLevel < 0
     val toneDeltaPair = color.toneDeltaPair?.invoke(scheme)
 
@@ -1174,9 +1184,11 @@ class ColorSpec2021 : ColorSpec {
       val polarity = toneDeltaPair.polarity
       val stayTogether = toneDeltaPair.stayTogether
       val aIsNearer =
-        (toneDeltaPair.constraint == DeltaConstraint.NEARER ||
-          (polarity == TonePolarity.LIGHTER && !scheme.isDark) ||
-          (polarity == TonePolarity.DARKER && !scheme.isDark))
+        (
+          toneDeltaPair.constraint == DeltaConstraint.NEARER ||
+            (polarity == TonePolarity.LIGHTER && !scheme.isDark) ||
+            (polarity == TonePolarity.DARKER && !scheme.isDark)
+        )
       val nearer = if (aIsNearer) roleA else roleB
       val farther = if (aIsNearer) roleB else roleA
       val amNearer = color.name == nearer.name
@@ -1190,10 +1202,10 @@ class ColorSpec2021 : ColorSpec {
       val fContrastCurve = farther.contrastCurve?.invoke(scheme)
       if (
         background != null &&
-          nearer.contrastCurve != null &&
-          farther.contrastCurve != null &&
-          nContrastCurve != null &&
-          fContrastCurve != null
+        nearer.contrastCurve != null &&
+        farther.contrastCurve != null &&
+        nContrastCurve != null &&
+        fContrastCurve != null
       ) {
         val bg = background.invoke(scheme)
         if (bg != null) {
@@ -1304,7 +1316,7 @@ class ColorSpec2021 : ColorSpec {
       val lower = min(bgTone1, bgTone2)
       if (
         Contrast.ratioOfTones(upper, answer) >= desiredRatio &&
-          Contrast.ratioOfTones(lower, answer) >= desiredRatio
+        Contrast.ratioOfTones(lower, answer) >= desiredRatio
       ) {
         return answer
       }
@@ -1350,27 +1362,48 @@ class ColorSpec2021 : ColorSpec {
     isDark: Boolean,
     platform: Platform,
     contrastLevel: Double,
-  ): TonalPalette {
-    return when (variant) {
+  ): TonalPalette =
+    when (variant) {
       Variant.CONTENT,
-      Variant.FIDELITY -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma)
-      Variant.FRUIT_SALAD ->
+      Variant.FIDELITY,
+      -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma)
+      }
+
+      Variant.FRUIT_SALAD -> {
         TonalPalette.fromHueAndChroma(
           MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),
           48.0,
         )
-      Variant.MONOCHROME -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.NEUTRAL -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12.0)
-      Variant.RAINBOW -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 48.0)
-      Variant.TONAL_SPOT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 36.0)
-      Variant.EXPRESSIVE ->
+      }
+
+      Variant.MONOCHROME -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.NEUTRAL -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12.0)
+      }
+
+      Variant.RAINBOW -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 48.0)
+      }
+
+      Variant.TONAL_SPOT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 36.0)
+      }
+
+      Variant.EXPRESSIVE -> {
         TonalPalette.fromHueAndChroma(
           MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 240),
           40.0,
         )
-      Variant.VIBRANT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 200.0)
+      }
+
+      Variant.VIBRANT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 200.0)
+      }
     }
-  }
 
   override fun getSecondaryPalette(
     variant: Variant,
@@ -1378,24 +1411,41 @@ class ColorSpec2021 : ColorSpec {
     isDark: Boolean,
     platform: Platform,
     contrastLevel: Double,
-  ): TonalPalette {
-    return when (variant) {
+  ): TonalPalette =
+    when (variant) {
       Variant.CONTENT,
-      Variant.FIDELITY ->
+      Variant.FIDELITY,
+      -> {
         TonalPalette.fromHueAndChroma(
           sourceColorHct.hue,
           max(sourceColorHct.chroma - 32.0, sourceColorHct.chroma * 0.5),
         )
-      Variant.FRUIT_SALAD ->
+      }
+
+      Variant.FRUIT_SALAD -> {
         TonalPalette.fromHueAndChroma(
           MathUtils.sanitizeDegreesDouble(sourceColorHct.hue - 50.0),
           36.0,
         )
-      Variant.MONOCHROME -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.NEUTRAL -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 8.0)
-      Variant.RAINBOW -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
-      Variant.TONAL_SPOT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
-      Variant.EXPRESSIVE ->
+      }
+
+      Variant.MONOCHROME -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.NEUTRAL -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 8.0)
+      }
+
+      Variant.RAINBOW -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
+      }
+
+      Variant.TONAL_SPOT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
+      }
+
+      Variant.EXPRESSIVE -> {
         TonalPalette.fromHueAndChroma(
           DynamicScheme.getRotatedHue(
             sourceColorHct,
@@ -1404,7 +1454,9 @@ class ColorSpec2021 : ColorSpec {
           ),
           24.0,
         )
-      Variant.VIBRANT ->
+      }
+
+      Variant.VIBRANT -> {
         TonalPalette.fromHueAndChroma(
           DynamicScheme.getRotatedHue(
             sourceColorHct,
@@ -1413,8 +1465,8 @@ class ColorSpec2021 : ColorSpec {
           ),
           24.0,
         )
+      }
     }
-  }
 
   override fun getTertiaryPalette(
     variant: Variant,
@@ -1422,32 +1474,49 @@ class ColorSpec2021 : ColorSpec {
     isDark: Boolean,
     platform: Platform,
     contrastLevel: Double,
-  ): TonalPalette {
-    return when (variant) {
-      Variant.CONTENT ->
+  ): TonalPalette =
+    when (variant) {
+      Variant.CONTENT -> {
         TonalPalette.fromHct(
           DislikeAnalyzer.fixIfDisliked(
             TemperatureCache(sourceColorHct)
-              .getAnalogousColors(count = 3, divisions = 6)[2]
-          )
+              .getAnalogousColors(count = 3, divisions = 6)[2],
+          ),
         )
-      Variant.FIDELITY ->
+      }
+
+      Variant.FIDELITY -> {
         TonalPalette.fromHct(
           DislikeAnalyzer.fixIfDisliked(
             TemperatureCache(
-              sourceColorHct
-            ).complement)
+              sourceColorHct,
+            ).complement,
+          ),
         )
-      Variant.FRUIT_SALAD -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 36.0)
-      Variant.MONOCHROME -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.NEUTRAL -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
+      }
+
+      Variant.FRUIT_SALAD -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 36.0)
+      }
+
+      Variant.MONOCHROME -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.NEUTRAL -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
+      }
+
       Variant.RAINBOW,
-      Variant.TONAL_SPOT ->
+      Variant.TONAL_SPOT,
+      -> {
         TonalPalette.fromHueAndChroma(
           MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 60.0),
           24.0,
         )
-      Variant.EXPRESSIVE ->
+      }
+
+      Variant.EXPRESSIVE -> {
         TonalPalette.fromHueAndChroma(
           DynamicScheme.getRotatedHue(
             sourceColorHct,
@@ -1456,7 +1525,9 @@ class ColorSpec2021 : ColorSpec {
           ),
           32.0,
         )
-      Variant.VIBRANT ->
+      }
+
+      Variant.VIBRANT -> {
         TonalPalette.fromHueAndChroma(
           DynamicScheme.getRotatedHue(
             sourceColorHct,
@@ -1465,8 +1536,8 @@ class ColorSpec2021 : ColorSpec {
           ),
           32.0,
         )
+      }
     }
-  }
 
   override fun getNeutralPalette(
     variant: Variant,
@@ -1474,22 +1545,42 @@ class ColorSpec2021 : ColorSpec {
     isDark: Boolean,
     platform: Platform,
     contrastLevel: Double,
-  ): TonalPalette {
-    return when (variant) {
+  ): TonalPalette =
+    when (variant) {
       Variant.CONTENT,
-      Variant.FIDELITY ->
+      Variant.FIDELITY,
+      -> {
         TonalPalette.fromHueAndChroma(sourceColorHct.hue, sourceColorHct.chroma / 8.0)
-      Variant.FRUIT_SALAD -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10.0)
-      Variant.MONOCHROME -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.NEUTRAL -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 2.0)
-      Variant.RAINBOW -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.TONAL_SPOT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 6.0)
-      Variant.EXPRESSIVE ->
-        TonalPalette.fromHueAndChroma(
-          MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 15), 8.0)
-      Variant.VIBRANT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10.0)
+      }
+
+      Variant.FRUIT_SALAD -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10.0)
+      }
+
+      Variant.MONOCHROME -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.NEUTRAL -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 2.0)
+      }
+
+      Variant.RAINBOW -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.TONAL_SPOT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 6.0)
+      }
+
+      Variant.EXPRESSIVE -> {
+        TonalPalette.fromHueAndChroma(MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 15), 8.0)
+      }
+
+      Variant.VIBRANT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 10.0)
+      }
     }
-  }
 
   override fun getNeutralVariantPalette(
     variant: Variant,
@@ -1497,24 +1588,45 @@ class ColorSpec2021 : ColorSpec {
     isDark: Boolean,
     platform: Platform,
     contrastLevel: Double,
-  ): TonalPalette {
-    return when (variant) {
+  ): TonalPalette =
+    when (variant) {
       Variant.CONTENT,
-      Variant.FIDELITY ->
+      Variant.FIDELITY,
+      -> {
         TonalPalette.fromHueAndChroma(sourceColorHct.hue, (sourceColorHct.chroma / 8.0) + 4.0)
-      Variant.FRUIT_SALAD -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
-      Variant.MONOCHROME -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.NEUTRAL -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 2.0)
-      Variant.RAINBOW -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
-      Variant.TONAL_SPOT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 8.0)
-      Variant.EXPRESSIVE ->
+      }
+
+      Variant.FRUIT_SALAD -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 16.0)
+      }
+
+      Variant.MONOCHROME -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.NEUTRAL -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 2.0)
+      }
+
+      Variant.RAINBOW -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 0.0)
+      }
+
+      Variant.TONAL_SPOT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 8.0)
+      }
+
+      Variant.EXPRESSIVE -> {
         TonalPalette.fromHueAndChroma(
           MathUtils.sanitizeDegreesDouble(sourceColorHct.hue + 15),
           12.0,
         )
-      Variant.VIBRANT -> TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12.0)
+      }
+
+      Variant.VIBRANT -> {
+        TonalPalette.fromHueAndChroma(sourceColorHct.hue, 12.0)
+      }
     }
-  }
 
   override fun getErrorPalette(
     variant: Variant,
@@ -1522,17 +1634,12 @@ class ColorSpec2021 : ColorSpec {
     isDark: Boolean,
     platform: Platform,
     contrastLevel: Double,
-  ): TonalPalette {
-    return TonalPalette.fromHueAndChroma(25.0, 84.0)
-  }
+  ): TonalPalette = TonalPalette.fromHueAndChroma(25.0, 84.0)
 
-  private fun isFidelity(scheme: DynamicScheme): Boolean {
-    return scheme.variant == Variant.FIDELITY || scheme.variant == Variant.CONTENT
-  }
+  private fun isFidelity(scheme: DynamicScheme): Boolean =
+    scheme.variant == Variant.FIDELITY || scheme.variant == Variant.CONTENT
 
-  private fun isMonochrome(scheme: DynamicScheme): Boolean {
-    return scheme.variant == Variant.MONOCHROME
-  }
+  private fun isMonochrome(scheme: DynamicScheme): Boolean = scheme.variant == Variant.MONOCHROME
 
   private fun findDesiredChromaByTone(
     hue: Double,

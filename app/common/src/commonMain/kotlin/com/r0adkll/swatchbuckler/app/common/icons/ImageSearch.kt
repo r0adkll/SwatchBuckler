@@ -14,14 +14,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val AppIcons.ImageSearch: ImageVector by
   lazy(LazyThreadSafetyMode.NONE) {
-    ImageVector.Builder(
+    ImageVector
+      .Builder(
         name = "ImageSearch",
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
         viewportWidth = 960f,
         viewportHeight = 960f,
-      )
-      .apply {
+      ).apply {
         path(fill = SolidColor(Color(0xFFE8EAED))) {
           moveToRelative(450f, 640f)
           lineToRelative(-66f, -88f)
@@ -93,8 +93,7 @@ val AppIcons.ImageSearch: ImageVector by
           reflectiveQuadToRelative(71f, 29f)
           close()
         }
-      }
-      .build()
+      }.build()
   }
 
 @Preview

@@ -28,23 +28,27 @@ class SchemeTonalSpot(
   contrastLevel: Double,
   specVersion: SpecVersion = DEFAULT_SPEC_VERSION,
   platform: Platform = DEFAULT_PLATFORM,
-) :
-  DynamicScheme(
+) : DynamicScheme(
     sourceColorHct,
     Variant.TONAL_SPOT,
     isDark,
     contrastLevel,
     platform,
     specVersion,
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getPrimaryPalette(Variant.TONAL_SPOT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getSecondaryPalette(Variant.TONAL_SPOT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getTertiaryPalette(Variant.TONAL_SPOT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralPalette(Variant.TONAL_SPOT, sourceColorHct, isDark, platform, contrastLevel),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getNeutralVariantPalette(
         Variant.TONAL_SPOT,
         sourceColorHct,
@@ -52,6 +56,7 @@ class SchemeTonalSpot(
         platform,
         contrastLevel,
       ),
-    ColorSpecs.get(specVersion)
+    ColorSpecs
+      .get(specVersion)
       .getErrorPalette(Variant.TONAL_SPOT, sourceColorHct, isDark, platform, contrastLevel),
   )

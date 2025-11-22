@@ -14,14 +14,14 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 val AppIcons.Bookmark: ImageVector by
   lazy(LazyThreadSafetyMode.NONE) {
-    ImageVector.Builder(
+    ImageVector
+      .Builder(
         name = "Bookmark",
         defaultWidth = 24.dp,
         defaultHeight = 24.dp,
         viewportWidth = 960f,
         viewportHeight = 960f,
-      )
-      .apply {
+      ).apply {
         path(fill = SolidColor(Color(0xFFE8EAED))) {
           moveTo(440f, 682f)
           verticalLineToRelative(-394f)
@@ -90,8 +90,7 @@ val AppIcons.Bookmark: ImageVector by
           moveTo(280f, 461f)
           close()
         }
-      }
-      .build()
+      }.build()
   }
 
 @Preview
