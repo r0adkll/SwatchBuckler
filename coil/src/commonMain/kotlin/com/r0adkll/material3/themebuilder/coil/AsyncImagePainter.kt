@@ -14,12 +14,18 @@ import com.r0adkll.swatchbuckler.compose.cache.LocalSwatchCache
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
 
-internal expect fun Bitmap.asImageBitmap(): ImageBitmap
+/**
+ * Convert [coil3.Bitmap] into a CMP [ImageBitmap]
+ */
+public expect fun Bitmap.asImageBitmap(): ImageBitmap
 
 /**
  * Collect the state from this [AsyncImagePainter] and process any [BitmapImage] results
@@ -65,3 +71,14 @@ public fun AsyncImagePainter.collectAsSwatch(
       null
     }.collectAsState(null)
 }
+
+/**
+ * Observe the [AsyncImagePainter] state as an [ImageBitmap], if available, to
+ * be processed by your own means
+ */
+@OptIn(ExperimentalCoroutinesApi::class)
+public fun StateFlow<AsyncImagePainter.State>.observeAsImageBitmap(): Flow<ImageBitmap> =
+  filterIsInstance<AsyncImagePainter.State.Success>()
+    .mapLatest { (_, result) -> result.image }
+    .filterIsInstance<BitmapImage>()
+    .mapLatest { it.bitmap.asImageBitmap() }
